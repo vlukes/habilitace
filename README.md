@@ -8,22 +8,53 @@
 
 ## Kapitola 2: Hyperelastické materiály s uvažováním velkých deformací
 
-* Command line processing:
+### Kapitola 2.4.1
 
-      python pucgen.py <input_file>
+* Přímá numerická simulace:
 
-* Run the GUI:
+      sfepy-run dns_hyper.py -d "output_dir='output_dns2'"
 
-      python pucgen.py
+* FE2 výpočet:
 
-## Input file examples:
+      sfepy-run fe2_makro_dns -d "output_dir='output_fe2'"
 
-#### `example1.puc`:
+* Generování grafů a obrázků:
 
-```
-BaseCell;size=(1, 1, 1);el_size=0.1;mat_id=5
-SphericalInclusion;radius=0.3;central_point=(0, 0, 0);el_size=0.5;mat_id=2
-CylindricalChannel;radius=0.1;central_point=(0, 0, 0);direction=x;el_size=0.5;mat_id=2
-CylindricalChannel;radius=0.15;central_point=(0, 0, 0);direction=y;el_size=0.5;mat_id=2
-CylindricalChannel;radius=0.2;central_point=(0, 0, 0);direction=z;el_size=0.5;mat_id=2
-```
+      python plot_kap241.py
+
+### Kapitola 2.4.2
+
+* FE2 výpočet:
+      sfepy-run fe2_makro.py -d "output_dir='output_fe2_a',recovery_idxs=[(0,0),(22,0),(27,0)],save_qp=True"
+
+* Generování grafů a obrázků:
+
+      python plot_kap242.py
+
+### Kapitola 2.4.4
+
+* FE2 výpočet (3D):
+
+      sfepy-run fe2_makro_3d.py
+
+### Kapitola 2.5.1
+
+* POD výpočet:
+
+      sfepy-run pod_makro.py -d "output_dir='output_pod'"
+
+### Kapitola 2.6.4
+
+* CSA výpočet:
+
+      sfepy-run csa_makro.py -d "delta=0.005,output_dir='output_fe2_b',save_qp=True"
+
+* Generování grafů a obrázků:
+
+      python plot_kap264.py
+
+### Kapitola 2.6.8
+
+* CSA výpočet (3D):
+
+      sfepy-run csa_makro_3D.py
