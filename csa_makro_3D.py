@@ -10,7 +10,7 @@ def define(delta=0.01,
            filename_mesh='meshes/macro_3D.vtk',
            filename_mesh_micro='meshes/micro_3D.vtk',
            output_dir='output_3D',
-           displ=35.,
+           angle=35.,
            eps_a=1e3,
            **kwargs):
 

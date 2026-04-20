@@ -21,7 +21,7 @@ plt.rcParams.update(
 fig_format = 'png'
 plot_steps = [1, 5, 9]
 data_dir, rho, nbins = 'output_fe2_b', 0.005, 6
-data_dir, rho, nbins = 'output_fe2_c', 0.001, 4
+# data_dir, rho, nbins = 'output_fe2_c', 0.001, 4
 fname_fe2 = get_vtk_fnames(data_dir, 'macro_L')
 fname_fe2_qp = osp.join(data_dir, 'cf_qp.mat')
 
