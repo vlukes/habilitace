@@ -96,7 +96,8 @@ def plot(title, xlabel, ylabel, varlab, pars, vals, filename_results,
 
 def plot_mesh(mesh, label, svar, fname_out, du=None,
               zoom=1, scale=1, show_init=False, show_edges=True,
-              cell_to_points=True, position=None, clim=None):
+              cell_to_points=True, position=None, clim=None,
+              arrows=None):
     if du is not None:
         grid0 = pv.from_meshio(mesh).outline()
         coors0 = mesh.points.copy()
@@ -121,6 +122,11 @@ def plot_mesh(mesh, label, svar, fname_out, du=None,
     if clim is not None:
         plotter.update_scalar_bar_range(clim=clim)
 
+    if arrows is not None:
+        grid2 = grid.cell_data_to_point_data()
+        arrows = grid2.glyph(scale=arrows[0], orient=arrows[0], factor=arrows[1])
+        plotter.add_mesh(arrows, show_scalar_bar=False, color="red")
+
     plotter.view_xy()
     plotter.camera.zoom(zoom)
     plotter.image_scale = scale
@@ -133,13 +139,14 @@ def plot_mesh(mesh, label, svar, fname_out, du=None,
 
 
 def plot_macro_coefs(x, ys, pts_lab, data_dir, fig_format,
-                     components, title, coef_names, coef_symbs, flag=''):
+                     components, title, coef_names, coef_symbs,
+                     flag='', xlabel='Loading step'):
     for cset in components:
         for clab, cidxs in cset:
-            if len(clab) > 4 and clab[-4] in '1234':
-                cname, ci = clab[:-4], clab[-4:]
-            elif len(clab) > 2 and clab[-2] in '1234':
-                cname, ci = clab[:-2], clab[-2:]
+            aux = clab.split('|')
+            clab1 = ''.join(aux)
+            if len(aux) == 2:
+                cname, ci = aux
             else:
                 cname, ci = clab, None
 
@@ -147,27 +154,30 @@ def plot_macro_coefs(x, ys, pts_lab, data_dir, fig_format,
             y = ys[cname][:, :, cidxs[0], cidxs[1]]
             varlab = ['$' + comp + r'(\hat{x}_{' + pts_lab[k] + '})$' for k in range(len(pts_lab))]
 
-            fname_out = osp.join(data_dir, f'fig_{pts_lab}_{clab}{flag}.{fig_format}')
+            fname_out = osp.join(data_dir, f'fig_{pts_lab}_{clab1}{flag}.{fig_format}')
             plot(title=title % comp,
-                figsize=(5, 3),
-                xlabel='Loading step',
-                ylabel=coef_names[cname] % comp,
-                varlab=varlab, pars=x, vals=y,
-                filename_results=fname_out)
+                 figsize=(5, 3),
+                 xlabel=xlabel,
+                 ylabel=coef_names[cname] % comp,
+                 varlab=varlab, pars=x, vals=y,
+                 filename_results=fname_out)
 
 
 def get_ss_mag(val):
     return nm.linalg.norm(nm.hstack([val, val[:, [-1]]]), axis=1)
 
 
-def get_vtk_fnames(dname, fname, d=None):
+def get_vtk_fnames(dname, fname, d=None, format=0):
     fname = osp.join(dname, fname)
     fmt = '{0:d}' if d is None else '{0:0=' + str(d) + 'd}'
 
     out = []
     flag = 0
     for k in range(10000):
-        fn = f'{fname}.{fmt.format(k)}.vtk'
+        if format == 1:
+            fn = f'{fname}_{fmt.format(k)}.vtk'
+        else:
+            fn = f'{fname}.{fmt.format(k)}.vtk'
         if osp.isfile(fn):
             out.append(fn)
             flag = 0
