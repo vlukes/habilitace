@@ -10,9 +10,9 @@
 
 ### Kapitola 2.4.1
 
-* Přímá numerická simulace:
+* Přímá numerická simulace (DNS):
 
-      sfepy-run dns_hyper.py -d "output_dir='output_dns2'"
+      sfepy-run dns_hyper.py -d "output_dir='output_dns'"
 
 * FE2 výpočet:
 
@@ -53,8 +53,45 @@
 
       python plot_kap264.py
 
-### Kapitola 2.6.8
+## Kapitola 3: Hyperelastické porézních struktury nasycené kapalinou
 
-* CSA výpočet (3D):
+### Kapitola 3.5
 
-      sfepy-run csa_makro_3D.py
+* DNS výpočet:
+
+      sfepy-run dns_hyper_perf.py -d "output_dir='output_dns_perf'"
+
+* FE2 výpočet:
+
+      sfepy-run fe2_perf_makro_dns.py -d "output_dir='output_fe2_perf'"
+
+* Generování grafů:
+
+      python plot_kap35.py
+
+### Kapitola 3.6
+
+* FE2 výpočet:
+
+      sfepy-run fe2_perf_makro.py -d "output_dir='output_perf'"
+
+* Generování grafů a obrázků:
+
+      python plot_kap36.py
+
+## Kapitola 4: Výpočetní homogenizace pro slabě nelineární úlohy
+
+### Kapitola 4.2.3
+
+* Homogenizace - výpočet:
+
+      sfepy-run poropiezo_macro.py -d "N=20,output_dir='output_poropiezo',eps0=0.005,phi_ampl=[4e5,0],micro_recovery=True"
+
+* DNS výpočet:
+
+      sfepy-run dns_poropiezo.py
+
+* Generování grafů:
+
+      python plot_kap423.py
+
