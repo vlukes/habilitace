@@ -85,7 +85,7 @@
 
 * Homogenizace - výpočet:
 
-      sfepy-run poropiezo_macro.py -d "N=20,output_dir='output_poropiezo',eps0=0.005,phi_ampl=[4e5,0],micro_recovery=True"
+      sfepy-run poropiezo_makro.py -d "N=20,output_dir='output_poropiezo',eps0=0.005,phi_ampl=[4e5,0],micro_recovery=True"
 
 * DNS výpočet:
 

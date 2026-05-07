@@ -695,7 +695,7 @@ def define(
 
     filename_mesh = osp.join(wdir, 'meshes',filename_mesh)
     filename_mesh_micro = osp.join(wdir, 'meshes', filename_mesh_micro)
-    filename_micro = osp.join(wdir, 'poropiezo_micro.py')
+    filename_micro = osp.join(wdir, 'poropiezo_mikro.py')
 
     fields = {
         'displacement': ('real', 'vector', 'Omega', 1),
