@@ -81,6 +81,20 @@
 
 ## Kapitola 4: Výpočetní homogenizace pro slabě nelineární úlohy
 
+### Kapitola 4.1.4
+
+* Homogenizace - lineární model:
+
+      sfepy-run poroela_makro.py -d "output_dir='output_poroela', nonlinear=False"
+
+* Homogenizace - nelineární model:
+
+      sfepy-run poroela_makro.py -d "output_dir='output_poroela', nonlinear=True"
+
+* Generování grafů:
+
+      python plot_kap414.py
+
 ### Kapitola 4.2.3
 
 * Homogenizace - výpočet:

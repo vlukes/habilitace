@@ -657,15 +657,6 @@ def get_bolus(ts, coors, problem):
     return out
 
 
-def move_ux(ts, coor, **kwargs):
-    problem = kwargs['problem']
-    ts = problem.conf.tstep
-
-    ex = -0.02 if problem.conf.bc_flag > 0 else 0.
-
-    return coor[:, 0] * ts.dt * ex
-
-
 def define(
         mode='1D',
         is_nonlinear=True,
@@ -717,7 +708,6 @@ def define(
     }
 
     functions = {
-        'move_ux': (move_ux,),
         'get_mat': (get_mat,),
         'match_y_plane': (per.match_y_plane,),
         'match_z_plane': (per.match_z_plane,),
@@ -736,7 +726,6 @@ def define(
 
     options = {
         'output_dir': osp.join(wdir, output_dir),
-        'nls': 'newton',
         'parametric_hook': 'time_stepping',
     }
 
@@ -775,8 +764,8 @@ def define(
 
     solvers = {
         'ls': ('ls.mumps', {}),
-        'newton': ('nls.newton',
-                   {'i_max': 10,
+        'nls': ('nls.newton',
+                    {'i_max': 10,
                     'eps_a': 1e-4,
                     'eps_r': 1e-3,
                     'problem': 'nonlinear',
