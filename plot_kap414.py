@@ -7,9 +7,6 @@ fig_format = 'png'
 fname_nlin = 'output_poroela/poroela_data_nl.mat'
 fname_lin = 'output_poroela/poroela_data_l.mat'
 
-fname_nlin = 'poroela1/output/data_poroela_nl.mat'
-fname_lin = 'poroela1/output/data_poroela_l.mat'
-
 odir = osp.split(fname_lin)[0]
 
 data_lin = loadmat(fname_lin)
